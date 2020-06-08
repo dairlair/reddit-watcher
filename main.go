@@ -3,9 +3,9 @@ package main
 import (
 	"flag"
 	log "github.com/sirupsen/logrus"
+	"github.com/stepsisters/kgb"
 	"github.com/stepsisters/kgb/pkg/component/kubernetes"
 	"github.com/stepsisters/kgb/pkg/component/signal"
-	"github.com/stepsisters/kgb"
 	"github.com/turnage/graw/reddit"
 	"os"
 	"strings"
