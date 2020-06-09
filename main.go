@@ -14,17 +14,23 @@ import (
 type watcherComponent struct {
 	cfg reddit.BotConfig
 	subreddits []string
+	postsRepository postsRepositoryInterface
 }
 
-func newWatcherComponent(cfg reddit.BotConfig, subreddits []string) watcherComponent {
+func newWatcherComponent(
+		cfg reddit.BotConfig,
+		subreddits []string,
+		postsRepository postsRepositoryInterface,
+	) watcherComponent {
 	return watcherComponent{
 		cfg,
 		subreddits,
+		postsRepository,
 	}
 }
 
 func (w watcherComponent) Run() (stop func(), wait func() error, err error) {
-	return listen(w.cfg, w.subreddits)
+	return listen(w.cfg, w.subreddits, w.postsRepository)
 }
 
 func (w watcherComponent) IsReady() bool {
@@ -32,8 +38,10 @@ func (w watcherComponent) IsReady() bool {
 }
 
 func main() {
+	repo := newMongoRepository("mongodb://localhost:27017")
+
 	subreddits := strings.Split(os.Getenv("REDDIT_SUBREDDITS"), " ")
-	watcher := newWatcherComponent(getBotConfig(), subreddits)
+	watcher := newWatcherComponent(getBotConfig(), subreddits, repo)
 
 	probesPort := os.Getenv("PROBES_PORT")
 	probe := kubernetes.NewHTTPProbe(watcher.IsReady, probesPort)

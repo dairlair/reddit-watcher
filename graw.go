@@ -8,21 +8,30 @@ import (
 
 type watchBot struct {
 	bot reddit.Bot
+	postsRepository postsRepositoryInterface
 }
 
-func newReminderBot(bot reddit.Bot) watchBot {
+func newReminderBot(bot reddit.Bot, postsRepository postsRepositoryInterface) watchBot {
 	return watchBot{
-		bot: bot,
+		bot,
+		postsRepository,
 	}
 }
 
 func (r *watchBot) Post(p *reddit.Post) error {
 	log.Infof("Post received: %v", p)
-	return nil
+	return r.postsRepository.save(*p)
 }
 
+type postsRepositoryInterface interface {
+	save (post reddit.Post) error
+}
 
-func listen(cfg reddit.BotConfig, subreddits []string) (stop func(), wait func() error, err error) {
+func listen(
+		cfg reddit.BotConfig,
+		subreddits []string,
+		postsRepository postsRepositoryInterface,
+	) (stop func(), wait func() error, err error) {
 	bot, err := reddit.NewBot(cfg)
 	if err != nil {
 		return nil, nil, err
@@ -32,7 +41,7 @@ func listen(cfg reddit.BotConfig, subreddits []string) (stop func(), wait func()
 		Subreddits: subreddits,
 	}
 
-	handler := newReminderBot(bot)
+	handler := newReminderBot(bot, postsRepository)
 
 	return graw.Run(&handler, bot, settings)
 }
