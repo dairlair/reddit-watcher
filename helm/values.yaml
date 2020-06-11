@@ -78,6 +78,14 @@ tolerations: []
 
 affinity: {}
 
-secrets:
-  reddit:
-    SUBREDDITS
+# All these variables will be passed to the application as environment variables retrieved
+# from the secret `reddit-watcher`. The secret name will be taken from the Chart name.
+secretVars:
+  - REDDIT_SUBREDDITS
+  - REDDIT_USER_AGENT
+  - REDDIT_CLIENT_ID
+  - REDDIT_SECRET
+  - REDDIT_USERNAME
+  - REDDIT_PASSWORD
+  - MONGODB_URI
+  - MONGODB_DATABASE

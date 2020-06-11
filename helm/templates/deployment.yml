@@ -25,6 +25,13 @@ spec:
           env:
             - name: PROBES_PORT
               value: "8000"
+            {{- range .Values.secretVars }}
+            - name: {{ . }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $.Release.Name }}
+                  key: {{ . }}
+            {{- end }}
           imagePullPolicy: Always
           livenessProbe:
             httpGet:
