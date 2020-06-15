@@ -73,6 +73,8 @@ github.com/spf13/cobra v0.0.3/go.mod h1:1l0Ry5zgKvJasoi3XT1TypsSe7PqH0Sj9dhYf7v3
 github.com/spf13/pflag v1.0.3/go.mod h1:DYY7MBk1bdzusC3SYhjObp+wFpr4gzcvqqNjLnInEg4=
 github.com/stepsisters/kgb v0.1.0 h1:N/daIz3nTfnng03g0I52OLW8O84tJ+OpzBLY8IEKrr8=
 github.com/stepsisters/kgb v0.1.0/go.mod h1:ES0YO0LLahSgL2UiUUvR0FGyHk8jZ8OClN/zBeiyqVk=
+github.com/stepsisters/kgb v0.1.1 h1:/pRKHllU7j1PXEWKH/J6wSJwAdFLNUnkQPzgziSb4WY=
+github.com/stepsisters/kgb v0.1.1/go.mod h1:ES0YO0LLahSgL2UiUUvR0FGyHk8jZ8OClN/zBeiyqVk=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.2.0/go.mod h1:qt09Ya8vawLte6SNmTgCsAVtYtaKzEcn8ATUoHMkEqE=
