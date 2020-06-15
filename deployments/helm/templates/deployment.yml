@@ -22,9 +22,11 @@ spec:
       containers:
         - name: {{ .Release.Name }}
           image: {{ $.Values.Image }}
+          ports:
+            - containerPort: {{ .Values.probesPort }}
           env:
             - name: PROBES_PORT
-              value: "8000"
+              value: "{{ .Values.probesPort }}"
             {{- range .Values.secretVars }}
             - name: {{ . }}
               valueFrom:
@@ -34,13 +36,15 @@ spec:
             {{- end }}
           imagePullPolicy: Always
           livenessProbe:
+            timeoutSeconds: 3
             httpGet:
               path: /healthz
-              port: 8000
+              port: {{ .Values.probesPort }}
           readinessProbe:
+            timeoutSeconds: 3
             httpGet:
               path: /readyz
-              port: 8000
+              port: {{ .Values.probesPort }}
           resources:
             limits:
               cpu: 10m
